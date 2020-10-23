@@ -18,5 +18,10 @@ namespace tabuleiro
             this.quantMovimentos = 0;
         }
 
+
+        public void incrementarQuantidadeMovimento()
+        {
+            quantMovimentos++;
+        }
     }
 }
