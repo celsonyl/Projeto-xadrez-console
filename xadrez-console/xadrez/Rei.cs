@@ -7,8 +7,9 @@ namespace xadrez
 {
     class Rei : Peca
     {
-        public Rei(Tabuleiro tab, Cor cor)
-              : base(tab, cor) { }
+        private PartidaDeXadrez partida;
+        public Rei(Tabuleiro tab, Cor cor, PartidaDeXadrez partida)
+              : base(tab, cor) { this.partida = partida; }
 
         public override string ToString()
         {
@@ -19,6 +20,12 @@ namespace xadrez
         {
             Peca p = tab.peca(pos);
             return p == null || p.cor != this.cor;
+        }
+
+        private bool testeTorreRoque(Posicao pos)
+        {
+            Peca p = tab.peca(pos);
+            return p != null && p is Torre && p.cor == cor && p.quantMovimentos == 0;
         }
 
         public override bool[,] movimentosPossiveis()
@@ -81,6 +88,23 @@ namespace xadrez
             if (tab.posicaoValida(pos) && podeMover(pos))
             {
                 mat[pos.linha, pos.coluna] = true;
+            }
+
+            //Jogada ROQUE
+            if (quantMovimentos == 0 && !partida.xeque)
+            {
+                //ROQUE PEQUENO
+                Posicao posT1 = new Posicao(posicao.linha, posicao.coluna + 3);
+                if (testeTorreRoque(posT1))
+                {
+                    Posicao p1 = new Posicao(posicao.linha, posicao.coluna + 1);
+                    Posicao p2 = new Posicao(posicao.linha, posicao.coluna + 2);
+                    if(tab.peca(p1) == null && tab.peca(p2) == null)
+                    {
+                        mat[posicao.linha, posicao.coluna + 2] = true;
+                    }
+                }
+
             }
 
             return mat;
