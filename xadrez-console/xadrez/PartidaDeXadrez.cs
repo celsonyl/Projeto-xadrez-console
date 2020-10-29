@@ -16,6 +16,7 @@ namespace xadrez
         private HashSet<Peca> capturadas;
 
         public bool xeque { get; private set; }
+        public Peca vulneravelPassant { get; private set; }
 
 
         public PartidaDeXadrez()
@@ -26,6 +27,7 @@ namespace xadrez
             pecas = new HashSet<Peca>();
             capturadas = new HashSet<Peca>();
             xeque = false;
+            vulneravelPassant = null;
             colocarPecas();
             terminada = false;
         }
@@ -124,6 +126,17 @@ namespace xadrez
 
                 turno++;
                 mudaJogador();
+            }
+
+            Peca p = tab.peca(destino);
+            //JOGADA PASSANT 
+            if(p is Peao && (destino.linha == origem.linha -2 || destino.linha == origem.linha + 2))
+            {
+                vulneravelPassant = p;
+            }
+            else
+            {
+                vulneravelPassant = null;
             }
         }
 
