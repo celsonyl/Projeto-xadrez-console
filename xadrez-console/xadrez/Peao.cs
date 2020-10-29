@@ -63,13 +63,13 @@ namespace xadrez
                 {
                     Posicao esquerda = new Posicao(posicao.linha, posicao.coluna - 1);
                     if(tab.posicaoValida(esquerda) && existeInimigo(esquerda) && tab.peca(esquerda) == partidaXadrez.vulneravelPassant){
-                        mat[esquerda.linha, esquerda.coluna] = true;
+                        mat[esquerda.linha - 1, esquerda.coluna] = true;
                     }
 
                     Posicao direita = new Posicao(posicao.linha, posicao.coluna + 1);
                     if (tab.posicaoValida(direita) && existeInimigo(direita) && tab.peca(direita) == partidaXadrez.vulneravelPassant)
                     {
-                        mat[direita.linha, direita.coluna] = true;
+                        mat[direita.linha - 1, direita.coluna] = true;
                     }
                 }
             }
@@ -78,7 +78,7 @@ namespace xadrez
                 pos.definirValores(posicao.linha + 1, posicao.coluna);
                 if(tab.posicaoValida(pos) && livre(pos))
                 {
-                    mat[pos.linha, pos.coluna] = true;
+                    mat[pos.linha , pos.coluna] = true;
                 }
 
                 pos.definirValores(posicao.linha + 2, posicao.coluna);
@@ -105,13 +105,13 @@ namespace xadrez
                     Posicao esquerda = new Posicao(posicao.linha, posicao.coluna - 1);
                     if (tab.posicaoValida(esquerda) && existeInimigo(esquerda) && tab.peca(esquerda) == partidaXadrez.vulneravelPassant)
                     {
-                        mat[esquerda.linha, esquerda.coluna] = true;
+                        mat[esquerda.linha + 1, esquerda.coluna] = true;
                     }
 
                     Posicao direita = new Posicao(posicao.linha, posicao.coluna + 1);
                     if (tab.posicaoValida(direita) && existeInimigo(direita) && tab.peca(direita) == partidaXadrez.vulneravelPassant)
                     {
-                        mat[direita.linha, direita.coluna] = true;
+                        mat[direita.linha + 1, direita.coluna] = true;
                     }
                 }
             }
